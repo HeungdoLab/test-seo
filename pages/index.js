@@ -4,11 +4,23 @@ import Image from "next/image";
 import Script from "next/script";
 import styles from "../styles/Home.module.css";
 
-// import ChannelService from "../components/ChannelService";
+import ChannelService from "../components/ChannelService";
 
 // CC9EFE
 
 const Home = () => {
+  useEffect(() => {
+    const channelTalk = new ChannelService();
+
+    channelTalk.boot({
+      pluginKey: "92471f96-19c9-4d66-bf97-1324e8e63790",
+    });
+
+    return () => {
+      channelTalk.shutdown();
+    };
+  }, []);
+
   // useEffect(() => {
   //   const channelTalk = new ChannelService();
 
@@ -80,7 +92,7 @@ const Home = () => {
             </p>
           </a>
         </div>
-        <Script
+        {/* <Script
           id="channelTalk"
           strategy="lazyOnload"
           dangerouslySetInnerHTML={{
@@ -124,8 +136,7 @@ const Home = () => {
   });
 	`,
           }}
-        />
-        ;
+        /> */}
       </main>
 
       <footer className={styles.footer}>
