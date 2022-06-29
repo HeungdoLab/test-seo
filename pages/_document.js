@@ -49,7 +49,7 @@ const Document = () => {
                     }
                 })();
                 ChannelIO('boot', {
-                    "pluginKey": "318cc6ca-5597-4f84-94ec-775a7ba55153"
+                    pluginKey: "318cc6ca-5597-4f84-94ec-775a7ba55153"
                 });
                 </script>
                 <!-- End Channel Plugin -->
