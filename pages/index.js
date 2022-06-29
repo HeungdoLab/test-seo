@@ -1,43 +1,39 @@
 import React, { useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
+import Script from "next/script";
 import styles from "../styles/Home.module.css";
 
-import ChannelService from "../components/ChannelService";
+// import ChannelService from "../components/ChannelService";
 
 // CC9EFE
 
 const Home = () => {
-  useEffect(() => {
-    const channelTalk = new ChannelService();
+  // useEffect(() => {
+  //   const channelTalk = new ChannelService();
 
-    // const {isLoggedIn, uid, name, mobileNumber, email, avatarUrl} = user;
-    // if (isLoggedIn) {
-    //   channelTalk.boot({
-    //     pluginKey: process.env.NEXT_PUBLIC_CHANNEL_IO_KEY,
-    //     memberId: uid,
-    //     profile: {
-    //       name,
-    //       mobileNumber,
-    //       email,
-    //       avatarUrl,
-    //     },
-    //   });
-    // } else {
-    //   channelTalk.boot({
-    //     pluginKey: process.env.NEXT_PUBLIC_CHANNEL_IO_KEY,
-    //   });
-    // }
+  //   const { isLoggedIn, uid, name, mobileNumber, email, avatarUrl } = user;
+  //   if (isLoggedIn) {
+  //     channelTalk.boot({
+  //       pluginKey: process.env.NEXT_PUBLIC_CHANNEL_IO_KEY,
+  //       memberId: uid,
+  //       profile: {
+  //         name,
+  //         mobileNumber,
+  //         email,
+  //         avatarUrl,
+  //       },
+  //     });
+  //   } else {
+  //     channelTalk.boot({
+  //       pluginKey: process.env.NEXT_PUBLIC_CHANNEL_IO_KEY,
+  //     });
+  //   }
 
-    channelTalk.boot({
-      pluginKey: "318cc6ca-5597-4f84-94ec-775a7ba55153",
-    });
-
-    return () => {
-      channelTalk.shutdown();
-    };
-    // }, [user]);
-  }, []);
+  //   return () => {
+  //     channelTalk.shutdown();
+  //   };
+  // }, [user]);
 
   return (
     <div className={styles.container}>
@@ -51,12 +47,10 @@ const Home = () => {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
-
         <p className={styles.description}>
           Get started by editing{" "}
           <code className={styles.code}>pages/index.js</code>
         </p>
-
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h2>Documentation &rarr;</h2>
@@ -86,6 +80,52 @@ const Home = () => {
             </p>
           </a>
         </div>
+        <Script
+          id="channelTalk"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `(function() {
+    var w = window;
+    if (w.ChannelIO) {
+      return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+    }
+    var ch = function() {
+      ch.c(arguments);
+    };
+    ch.q = [];
+    ch.c = function(args) {
+      ch.q.push(args);
+    };
+    w.ChannelIO = ch;
+    function l() {
+      if (w.ChannelIOInitialized) {
+        return;
+      }
+      w.ChannelIOInitialized = true;
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+      s.charset = 'UTF-8';
+      var x = document.getElementsByTagName('script')[0];
+      x.parentNode.insertBefore(s, x);
+    }
+    if (document.readyState === 'complete') {
+      l();
+    } else if (window.attachEvent) {
+      window.attachEvent('onload', l);
+    } else {
+      window.addEventListener('DOMContentLoaded', l, false);
+      window.addEventListener('load', l, false);
+    }
+  })();
+  ChannelIO('boot', {
+    "pluginKey": "318cc6ca-5597-4f84-94ec-775a7ba55153"
+  });
+	`,
+          }}
+        />
+        ;
       </main>
 
       <footer className={styles.footer}>
