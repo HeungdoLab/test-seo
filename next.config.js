@@ -1,9 +1,10 @@
+import { PRODUCTION } from "./constants/strings";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   compiler: {
-    // removeConsole: true,
-    removeConsole: process.env.NODE_ENV === "production" ? true : false,
+    removeConsole: process.env.NODE_ENV === PRODUCTION ? true : false,
   },
 };
 
